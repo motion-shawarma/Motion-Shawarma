@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
    :root{
     --paper:#FAF6EF; --ink:#1C1917; --muted:#6F675C; --line:#E7DFD2; --dot:#C9BEAC;
@@ -75,6 +76,12 @@
   .add:hover{background:var(--ink);color:var(--cream)}
   .add.added{background:var(--accent);border-color:var(--accent);color:#fff}
 
+  /* Preference buttons */
+  .pref-buttons{display:flex;gap:8px;margin-top:2px}
+  .pref-btn{border:1px solid var(--dot);background:transparent;color:var(--muted);font:500 11px Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;border-radius:5px;cursor:pointer;transition:all .15s}
+  .pref-btn:hover{border-color:var(--ink);color:var(--ink)}
+  .pref-btn.active{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:28px 0;margin-top:56px}
   .step-num{font-family:Fraunces,Georgia,serif;font-style:italic;color:var(--accent);font-size:1.2rem}
   .step b{display:block;font-size:14px;margin:6px 0 4px}
@@ -111,9 +118,7 @@
   .order-bar.show{display:flex}
   .bar-summary{background:none;border:0;color:var(--cream);font:600 14px Inter,sans-serif;cursor:pointer}
   .bar-send{background:var(--cream);color:var(--ink);border:0;padding:11px 18px;border-radius:6px;font:700 13px Inter,sans-serif;letter-spacing:.04em;cursor:pointer}
-  
-  /* Order Panel & Preferences */
-  .order-panel{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:60;width:min(560px,calc(100% - 24px));background:#FFFDF9;border:1px solid var(--line);border-radius:10px;padding:22px;display:none;max-height:60vh;overflow:auto;box-shadow:0 12px 32px rgba(28,25,23,.18)}
+  .order-panel{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:60;width:min(560px,calc(100% - 24px));background:#FFFDF9;border:1px solid var(--line);border-radius:10px;padding:22px;display:none;max-height:65vh;overflow:auto;box-shadow:0 12px 32px rgba(28,25,23,.18)}
   .order-panel.open{display:block}
   .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .panel-head h3{font-size:1.2rem;font-weight:500}
@@ -124,21 +129,13 @@
   .o-controls button{width:24px;height:24px;border-radius:4px;border:1px solid var(--dot);background:transparent;color:var(--ink);cursor:pointer;font-weight:600;line-height:1}
   .o-controls b{font-variant-numeric:tabular-nums}
   .o-price{font-family:Fraunces,Georgia,serif;font-weight:600;font-variant-numeric:tabular-nums;min-width:76px;text-align:right}
-  
-  /* Preferences Styling */
-  .preferences{margin-top:20px;padding-top:16px;border-top:1px dashed var(--dot)}
-  .pref-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
-  .pref-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .pref-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer}
-  .pref-item input{accent-color:var(--accent);width:16px;height:16px}
-  
+  .o-toggle{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:14px;min-width:76px;text-align:right;color:var(--accent)}
   .panel-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0}
   .panel-total span{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
   .panel-total b{font-family:Fraunces,Georgia,serif;font-size:1.2rem;font-variant-numeric:tabular-nums}
   .send-btn{width:100%;background:var(--ink);color:var(--cream);border:0;padding:14px;border-radius:6px;font:700 14px Inter,sans-serif;cursor:pointer}
   .send-btn:hover{background:#000}
   .clear-btn{width:100%;background:none;border:0;color:var(--muted);margin-top:10px;cursor:pointer;font-size:12px;text-decoration:underline}
-  @media(max-width:480px){.pref-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -165,7 +162,6 @@
     <p class="hero-meta">100% chicken &middot; No beef &middot; Made to order</p>
   </div>
   <div class="panel">
-    <!-- Replace this brand panel with your best food photo when ready -->
     <span class="mono">M</span>
     <span class="rule"></span>
     <span class="word">Motion Shawarma</span>
@@ -185,31 +181,31 @@
       <div class="group-head"><p class="eyebrow">Section 01</p><h3>Chicken Shawarma</h3></div>
       <div class="item">
         <div class="item-main">
-          <div class="item-line"><span class="item-name">Classic Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;50</span></div>
+          <div class="item-line"><span class="item-name">Classic Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;40</span></div>
           <p class="item-desc">Marinated chicken, fresh vegetables and garlic sauce in a warm flatbread.</p>
         </div>
-        <button class="add" data-item="Classic Chicken Shawarma" data-price="50">Add</button>
+        <button class="add" data-item="Classic Chicken Shawarma" data-price="40">Add</button>
       </div>
       <div class="item">
         <div class="item-main">
-          <div class="item-line"><span class="item-name">Double Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;60</span></div>
+          <div class="item-line"><span class="item-name">Double Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;50</span></div>
           <p class="item-desc">Twice the chicken, same signature wrap.</p>
         </div>
-        <button class="add" data-item="Double Chicken Shawarma" data-price="60">Add</button>
+        <button class="add" data-item="Double Chicken Shawarma" data-price="50">Add</button>
       </div>
       <div class="item">
         <div class="item-main">
-          <div class="item-line"><span class="item-name">Extra Loaded Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;70</span></div>
+          <div class="item-line"><span class="item-name">Extra Loaded Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;60</span></div>
           <p class="item-desc">Additional chicken and sauce, built heavier.</p>
         </div>
-        <button class="add" data-item="Extra Loaded Chicken Shawarma" data-price="70">Add</button>
+        <button class="add" data-item="Extra Loaded Chicken Shawarma" data-price="60">Add</button>
       </div>
       <div class="item">
         <div class="item-main">
-          <div class="item-line"><span class="item-name">Fully Loaded Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;80</span></div>
+          <div class="item-line"><span class="item-name">Fully Loaded Chicken Shawarma</span><span class="dots"></span><span class="item-price">GH&#8373;70</span></div>
           <p class="item-desc">The complete build — maximum chicken, toppings and sauce.</p>
         </div>
-        <button class="add" data-item="Fully Loaded Chicken Shawarma" data-price="80">Add</button>
+        <button class="add" data-item="Fully Loaded Chicken Shawarma" data-price="70">Add</button>
       </div>
     </div>
 
@@ -263,9 +259,54 @@
       </div>
     </div>
 
+    <div class="menu-group">
+      <div class="group-head"><p class="eyebrow">Section 04</p><h3>Customize Your Order</h3></div>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:12px;">Select your preferences below.</p>
+      <div class="item">
+        <div class="item-main">
+          <div class="item-line"><span class="item-name">Vegetables</span><span class="dots"></span></div>
+          <p class="item-desc">Fresh vegetables in your order.</p>
+          <div class="pref-buttons">
+            <button class="pref-btn active" data-pref="Vegetables" data-value="Yes">Yes</button>
+            <button class="pref-btn" data-pref="Vegetables" data-value="No">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-main">
+          <div class="item-line"><span class="item-name">Spice Level</span><span class="dots"></span></div>
+          <p class="item-desc">Choose how spicy you want it.</p>
+          <div class="pref-buttons">
+            <button class="pref-btn" data-pref="Spicy" data-value="Spicy">Spicy</button>
+            <button class="pref-btn active" data-pref="Spicy" data-value="Normal">Normal</button>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-main">
+          <div class="item-line"><span class="item-name">Ketchup</span><span class="dots"></span></div>
+          <p class="item-desc">Add ketchup to your order.</p>
+          <div class="pref-buttons">
+            <button class="pref-btn active" data-pref="Ketchup" data-value="Yes">Yes</button>
+            <button class="pref-btn" data-pref="Ketchup" data-value="No">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-main">
+          <div class="item-line"><span class="item-name">Mayonnaise</span><span class="dots"></span></div>
+          <p class="item-desc">Add mayonnaise to your order.</p>
+          <div class="pref-buttons">
+            <button class="pref-btn active" data-pref="Mayonnaise" data-value="Yes">Yes</button>
+            <button class="pref-btn" data-pref="Mayonnaise" data-value="No">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="steps">
       <div class="step"><span class="step-num">1.</span><b>Build your order</b><p>Select Add on any item. Adjust quantities in your order tray.</p></div>
-      <div class="step"><span class="step-num">2.</span><b>Send on WhatsApp</b><p>Your items and total are filled in automatically.</p></div>
+      <div class="step"><span class="step-num">2.</span><b>Customize &amp; Send</b><p>Choose your preferences, then send automatically to WhatsApp.</p></div>
       <div class="step"><span class="step-num">3.</span><b>We confirm</b><p>We reply with timing and pickup or delivery details.</p></div>
     </div>
   </div>
@@ -322,18 +363,6 @@
 <div class="order-panel" id="orderPanel">
   <div class="panel-head"><h3>Your Order</h3><button onclick="togglePanel()" aria-label="Close">&#10005;</button></div>
   <div id="orderList"></div>
-  
-  <!-- PREFERENCES SECTION -->
-  <div class="preferences">
-    <p class="pref-title">How should we prepare it?</p>
-    <div class="pref-grid">
-      <label class="pref-item"><input type="checkbox" id="prefVeg"> Vegetables?</label>
-      <label class="pref-item"><input type="checkbox" id="prefSpicy"> Spicy?</label>
-      <label class="pref-item"><input type="checkbox" id="prefKetchup"> Ketchup?</label>
-      <label class="pref-item"><input type="checkbox" id="prefMayo"> Mayonnaise?</label>
-    </div>
-  </div>
-
   <div class="panel-total"><span>Total</span><b id="orderTotal">GH&#8373;0</b></div>
   <button class="send-btn" onclick="sendOrder()">Send Order on WhatsApp</button>
   <button class="clear-btn" onclick="clearOrder()">Clear order</button>
@@ -343,6 +372,14 @@
   const WHATSAPP_NUMBER = "233240190352";
   const cart = new Map();
   const money = n => "GH\u20B5" + n;
+
+  // Preferences storage
+  const prefs = {
+    'Vegetables': 'Yes',
+    'Spicy': 'Normal',
+    'Ketchup': 'Yes',
+    'Mayonnaise': 'Yes'
+  };
 
   function addToCart(name, price){
     const item = cart.get(name) || {price, qty:0};
@@ -360,6 +397,15 @@
   function clearOrder(){ cart.clear(); render(); }
   function togglePanel(){ document.getElementById("orderPanel").classList.toggle("open"); }
 
+  function selectPref(name, value){
+    prefs[name] = value;
+    // Update button states
+    document.querySelectorAll(`[data-pref="${name}"]`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === value);
+    });
+    render();
+  }
+
   function totals(){
     let count = 0, sum = 0;
     cart.forEach(i => { count += i.qty; sum += i.qty * i.price; });
@@ -374,6 +420,8 @@
       "View order \u00B7 " + count + (count === 1 ? " item" : " items") + " \u2014 " + money(sum);
     const list = document.getElementById("orderList");
     list.innerHTML = "";
+
+    // Food items
     cart.forEach((i, name) => {
       const row = document.createElement("div");
       row.className = "order-row";
@@ -386,39 +434,55 @@
         <span class="o-price">${money(i.qty * i.price)}</span>`;
       list.appendChild(row);
     });
+
+    // Preferences (always shown)
+    const prefHeader = document.createElement("div");
+    prefHeader.style.cssText = "padding:14px 0 6px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line);margin-top:8px;";
+    prefHeader.textContent = "Your Preferences";
+    list.appendChild(prefHeader);
+
+    Object.keys(prefs).forEach(name => {
+      const row = document.createElement("div");
+      row.className = "order-row";
+      const value = prefs[name];
+      row.innerHTML = `<span class="o-name">${name}</span>
+        <span class="o-toggle">${value}</span>`;
+      list.appendChild(row);
+    });
+
     document.getElementById("orderTotal").textContent = money(sum);
   }
 
   function sendOrder(){
     if(WHATSAPP_NUMBER.includes("X")){
-      alert("Setup needed: replace WHATSAPP_NUMBER in the code with the real number.");
+      alert("Setup needed: replace WHATSAPP_NUMBER in the code with the real number, e.g. 233240190352");
       return;
     }
-    
-    // Get Preferences
-    const hasVeg = document.getElementById('prefVeg').checked ? "Yes" : "No";
-    const hasSpicy = document.getElementById('prefSpicy').checked ? "Yes" : "No";
-    const hasKetchup = document.getElementById('prefKetchup').checked ? "Yes" : "No";
-    const hasMayo = document.getElementById('prefMayo').checked ? "Yes" : "No";
-
     const {sum} = totals();
     const lines = ["Hello Motion Shawarma! I want to order:", ""];
     cart.forEach((i, name) => lines.push(`${i.qty}x ${name} \u2014 ${money(i.qty * i.price)}`));
-    
-    // Append preferences to the message
+
     lines.push("", "*Preferences:*");
-    lines.push(`Vegetables: ${hasVeg}`);
-    lines.push(`Spicy: ${hasSpicy}`);
-    lines.push(`Ketchup: ${hasKetchup}`);
-    lines.push(`Mayonnaise: ${hasMayo}`);
-    
-    lines.push("", `*Total: ${money(sum)}*`, "");
-    lines.push("Name:","Contact:","Pickup or Delivery?:", "Delivery location (if delivery):");
-    
+    Object.keys(prefs).forEach(name => {
+      lines.push(`${name}: ${prefs[name]}`);
+    });
+
+    lines.push(
+      "",
+      `*Total: ${money(sum)}*`,
+      "",
+      "*Customer Details:*",
+      "Name:",
+      "Contact:",
+      "Pickup or Delivery?:",
+      "Delivery location (if delivery):"
+    );
+
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
   }
 
-  document.querySelectorAll(".add").forEach(btn => {
+  // Food item buttons
+  document.querySelectorAll(".add[data-item]").forEach(btn => {
     btn.addEventListener("click", () => {
       addToCart(btn.dataset.item, Number(btn.dataset.price));
       btn.textContent = "Added \u2713";
@@ -426,10 +490,21 @@
       setTimeout(() => { btn.textContent = "Add"; btn.classList.remove("added"); }, 900);
     });
   });
+
+  // Preference buttons
+  document.querySelectorAll(".pref-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectPref(btn.dataset.pref, btn.dataset.value);
+    });
+  });
+
   document.querySelectorAll("a[data-wa]").forEach(a => {
     a.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello Motion Shawarma! I want to order")}`;
   });
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Initial render
+  render();
 </script>
 
 </body>

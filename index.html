@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 <style>
    :root{
     --paper:#FAF6EF; --ink:#1C1917; --muted:#6F675C; --line:#E7DFD2; --dot:#C9BEAC;
@@ -112,6 +111,8 @@
   .order-bar.show{display:flex}
   .bar-summary{background:none;border:0;color:var(--cream);font:600 14px Inter,sans-serif;cursor:pointer}
   .bar-send{background:var(--cream);color:var(--ink);border:0;padding:11px 18px;border-radius:6px;font:700 13px Inter,sans-serif;letter-spacing:.04em;cursor:pointer}
+  
+  /* Order Panel & Preferences */
   .order-panel{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:60;width:min(560px,calc(100% - 24px));background:#FFFDF9;border:1px solid var(--line);border-radius:10px;padding:22px;display:none;max-height:60vh;overflow:auto;box-shadow:0 12px 32px rgba(28,25,23,.18)}
   .order-panel.open{display:block}
   .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
@@ -123,12 +124,21 @@
   .o-controls button{width:24px;height:24px;border-radius:4px;border:1px solid var(--dot);background:transparent;color:var(--ink);cursor:pointer;font-weight:600;line-height:1}
   .o-controls b{font-variant-numeric:tabular-nums}
   .o-price{font-family:Fraunces,Georgia,serif;font-weight:600;font-variant-numeric:tabular-nums;min-width:76px;text-align:right}
+  
+  /* Preferences Styling */
+  .preferences{margin-top:20px;padding-top:16px;border-top:1px dashed var(--dot)}
+  .pref-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+  .pref-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pref-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer}
+  .pref-item input{accent-color:var(--accent);width:16px;height:16px}
+  
   .panel-total{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0}
   .panel-total span{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
   .panel-total b{font-family:Fraunces,Georgia,serif;font-size:1.2rem;font-variant-numeric:tabular-nums}
   .send-btn{width:100%;background:var(--ink);color:var(--cream);border:0;padding:14px;border-radius:6px;font:700 14px Inter,sans-serif;cursor:pointer}
   .send-btn:hover{background:#000}
   .clear-btn{width:100%;background:none;border:0;color:var(--muted);margin-top:10px;cursor:pointer;font-size:12px;text-decoration:underline}
+  @media(max-width:480px){.pref-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -139,7 +149,7 @@
     <div class="nav-links">
       <a href="#menu">Menu</a><a href="#about">About</a><a href="#visit">Visit</a>
     </div>
-    <a class="btn btn-solid btn-sm" data-wa href="https://wa.me/233246408298" target="_blank" rel="noopener">Order on WhatsApp</a>
+    <a class="btn btn-solid btn-sm" data-wa href="https://wa.me/233240190352" target="_blank" rel="noopener">Order on WhatsApp</a>
   </div>
 </nav>
 
@@ -149,15 +159,13 @@
     <h1>Hot. Loaded.<br><em>In Motion.</em></h1>
     <p class="sub">Chicken shawarma and loaded fries, prepared fresh to order. A simple menu, done properly.</p>
     <div class="hero-cta">
-      <a class="btn btn-solid" data-wa href="https://wa.me/233246408298" target="_blank" rel="noopener">Order on WhatsApp</a>
+      <a class="btn btn-solid" data-wa href="https://wa.me/233240190352" target="_blank" rel="noopener">Order on WhatsApp</a>
       <a class="btn btn-ghost" href="#menu">View the menu</a>
     </div>
     <p class="hero-meta">100% chicken &middot; No beef &middot; Made to order</p>
   </div>
   <div class="panel">
-    <!-- Replace this brand panel with your best food photo when ready:
-         <img src="images/shawarma.jpg" alt="Chicken shawarma at Motion Shawarma"
-              style="width:100%;height:100%;object-fit:cover"> -->
+    <!-- Replace this brand panel with your best food photo when ready -->
     <span class="mono">M</span>
     <span class="rule"></span>
     <span class="word">Motion Shawarma</span>
@@ -283,9 +291,9 @@
   <p class="section-sub">Walk in, or order ahead on WhatsApp and collect when it's ready.</p>
   <div class="visit-grid">
     <div>
-      <div class="info-row"><p class="info-label">Location</p><p class="info-value">[infront of Ros De Ser], Madina, Accra</p></div>
-      <div class="info-row"><p class="info-label">Hours</p><p class="info-value">[Mon – Sat ]<br> [5pm – 12am]</p></div>
-      <div class="info-row"><p class="info-label">Phone / WhatsApp</p><p class="info-value">[024 019 0352]</p></div>
+      <div class="info-row"><p class="info-label">Location</p><p class="info-value">In front of Ros De Ser, Madina, Accra</p></div>
+      <div class="info-row"><p class="info-label">Hours</p><p class="info-value">Mon – Sat<br>5:00 PM – 12:00 AM</p></div>
+      <div class="info-row"><p class="info-label">Phone / WhatsApp</p><p class="info-value">024 019 0352</p></div>
       <p class="visit-cta"><a class="btn btn-solid btn-sm" data-wa href="https://wa.me/233240190352" target="_blank" rel="noopener">Message us on WhatsApp</a></p>
     </div>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3358.9135821073523!2d-0.16667141670275612!3d5.664348257081215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9d0060e9e57b%3A0xdee8588be5ad5203!2sRos%20de%20ser%20heights!5e0!3m2!1sen!2sgh!4v1795307835663!5m2!1sen!2sgh" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -314,6 +322,18 @@
 <div class="order-panel" id="orderPanel">
   <div class="panel-head"><h3>Your Order</h3><button onclick="togglePanel()" aria-label="Close">&#10005;</button></div>
   <div id="orderList"></div>
+  
+  <!-- PREFERENCES SECTION -->
+  <div class="preferences">
+    <p class="pref-title">How should we prepare it?</p>
+    <div class="pref-grid">
+      <label class="pref-item"><input type="checkbox" id="prefVeg"> Vegetables?</label>
+      <label class="pref-item"><input type="checkbox" id="prefSpicy"> Spicy?</label>
+      <label class="pref-item"><input type="checkbox" id="prefKetchup"> Ketchup?</label>
+      <label class="pref-item"><input type="checkbox" id="prefMayo"> Mayonnaise?</label>
+    </div>
+  </div>
+
   <div class="panel-total"><span>Total</span><b id="orderTotal">GH&#8373;0</b></div>
   <button class="send-btn" onclick="sendOrder()">Send Order on WhatsApp</button>
   <button class="clear-btn" onclick="clearOrder()">Clear order</button>
@@ -371,13 +391,30 @@
 
   function sendOrder(){
     if(WHATSAPP_NUMBER.includes("X")){
-      alert("Setup needed: replace WHATSAPP_NUMBER in the code with the real number, e.g. 233240190352");
+      alert("Setup needed: replace WHATSAPP_NUMBER in the code with the real number.");
       return;
     }
+    
+    // Get Preferences
+    const hasVeg = document.getElementById('prefVeg').checked ? "Yes" : "No";
+    const hasSpicy = document.getElementById('prefSpicy').checked ? "Yes" : "No";
+    const hasKetchup = document.getElementById('prefKetchup').checked ? "Yes" : "No";
+    const hasMayo = document.getElementById('prefMayo').checked ? "Yes" : "No";
+
     const {sum} = totals();
     const lines = ["Hello Motion Shawarma! I want to order:", ""];
     cart.forEach((i, name) => lines.push(`${i.qty}x ${name} \u2014 ${money(i.qty * i.price)}`));
-    lines.push("", `Total: ${money(sum)}`, "", "Name:","Contact:","Pickup or Delivery?:", "Delivery location (if delivery):");
+    
+    // Append preferences to the message
+    lines.push("", "*Preferences:*");
+    lines.push(`Vegetables: ${hasVeg}`);
+    lines.push(`Spicy: ${hasSpicy}`);
+    lines.push(`Ketchup: ${hasKetchup}`);
+    lines.push(`Mayonnaise: ${hasMayo}`);
+    
+    lines.push("", `*Total: ${money(sum)}*`, "");
+    lines.push("Name:","Contact:","Pickup or Delivery?:", "Delivery location (if delivery):");
+    
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
   }
 
